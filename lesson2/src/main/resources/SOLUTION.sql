@@ -1,1 +1,0 @@
-insert into paymenttype (name) values ('DAILY'),('WEEKLY'),('MONTHLY');
