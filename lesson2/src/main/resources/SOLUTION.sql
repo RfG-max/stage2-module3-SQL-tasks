@@ -1,0 +1,1 @@
+insert into subject (name,grade) values ('Art',1),('Music',1),('Geography',2),('History',2),('PE',3),('Math',3),('Science',4),('IT',4),('Science1',5),('IT1',5);
