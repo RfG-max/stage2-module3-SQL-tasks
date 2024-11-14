@@ -1,4 +1,10 @@
-DELETE FROM mark WHERE student_id IN (SELECT id FROM student WHERE groupnumber >= 4);DELETE FROM payment WHERE student_id IN (SELECT id FROM student WHERE groupnumber >= 4);DELETE FROM student WHERE groupnumber >= 4;
-CREATE TEMPORARY TABLE temp_students AS (SELECT student_id FROM mark WHERE mark < 7);DELETE FROM mark WHERE student_id IN (SELECT student_id FROM temp_students);DELETE FROM PAYMENT WHERE student_id IN (SELECT student_id FROM temp_students);DELETE FROM STUDENT WHERE id IN (SELECT student_id FROM temp_students);DROP TABLE temp_students;
-DELETE FROM payment WHERE type_id IN (SELECT ID FROM paymenttype WHERE name = 'DAILY');DELETE FROM paymenttype WHERE name = 'DAILY';
+ALTER TABLE mark DROP CONSTRAINT mark_student_id_fkey;
+ALTER TABLE mark ADD CONSTRAINT mark_student_id_fkey FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE;
+ALTER TABLE payment DROP CONSTRAINT payment_student_id_fkey;
+ALTER TABLE payment ADD CONSTRAINT payment_student_id_fkey FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE;
+ALTER TABLE payment DROP CONSTRAINT payment_type_id_fkey;
+ALTER TABLE payment ADD CONSTRAINT payment_type_id_fkey FOREIGN KEY (type_id) REFERENCES paymenttype(id) ON DELETE CASCADE;
+DELETE FROM student WHERE groupnumber >= 4;
+delete from STUDENT where id in (SELECT student_id FROM mark WHERE mark<7);
+delete from paymenttype WHERE name = 'DAILY';
 DELETE FROM mark WHERE mark < 7;
